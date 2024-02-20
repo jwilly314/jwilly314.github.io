@@ -1,0 +1,129 @@
+<html>
+
+<head>
+  <title>Thermometer Lab</title>
+</head>
+
+<body>
+  <h1>Thermometer Lab</h1>
+  <div class="slidecontainer">
+    <p>Temperature:</p>
+    <input type="range" min="0" max="135" value="135" class="slider" id="myRange">
+  </div>
+  <div>
+    <svg version="1.1" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" height="50%" width="75%">
+      <style>
+        #glass {
+          fill: #ffffff;
+          stroke: #cccccc;
+          stroke-width: 3;
+        }
+
+        #container {
+          fill: #ffffff;
+          stroke: #000000;
+          stroke-width: 5;
+        }
+
+        #liquid {
+          stroke: #cccccc;
+          stroke-width: 3;
+        }
+
+        .font {
+          font: bold 10px sans-serif;
+        }
+
+      </style>
+      <rect id="container" x="10" y="10" width="100" height="210" rx="15" />
+      
+      <g id="glass">
+        <rect x="45" y="20" width="30" height="160" rx="15" />
+        <ellipse cx="60" cy="180" rx="30" ry="30" />
+        <rect x="46.5" y="22" width="27" height="165" rx="15" stroke="none" />
+      </g>
+
+      <g id="ticks">
+        <rect x="120" y="30" width="20" height="2.5" />
+        <rect x="120" y="43" width="10" height="2.5" />
+        <rect x="120" y="56" width="20" height="2.5" />
+        <rect x="120" y="69" width="10" height="2.5" />
+        <rect x="120" y="82" width="20" height="2.5" />
+        <rect x="120" y="95" width="10" height="2.5" />
+        <rect x="120" y="108" width="20" height="2.5" />
+        <rect x="120" y="121" width="10" height="2.5" />
+        <rect x="120" y="134" width="20" height="2.5" />
+        <rect x="120" y="147" width="10" height="2.5" />
+        <rect x="120" y="160" width="20" height="2.5" />
+
+      <text x="145" y="35" class="font" id="text1">212.0 °F</text>
+      <text x="145" y="61" class="font" id="text2">169.6 °F</text>
+      <text x="145" y="87" class="font" id="text3">127.2 °F</text>
+      <text x="145" y="113" class="font" id="text4">84.8 °F</text>
+      <text x="145" y="139" class="font" id="text5">42.4 °F</text>
+      <text x="145" y="165" class="font" id="text6">0.0 °F</text>
+
+      <g id="liquid">
+        <rect x="55" y="30" width="10" height="160" rx="5" fill="red" id="McSlidey"/>
+        <ellipse cx="60" cy="180" rx="20" ry="20" fill="red" id="McRoundy"/>
+        <rect x="55.5" y="32" width="9" height="165" rx="5" stroke="none" fill="red" id="McSlidey2"/>
+      </g>
+
+      <path d="M 68 191 A 14 14 54 0 1 50 170" stroke="white" fill="none" stroke-width="2"/>
+      <path d="M 53 168 A 14 14 54 0 1 61 166" stroke="white" fill="none" stroke-width="2"/>
+    </svg>
+  </div>
+  <fieldset>
+    <legend>Click to Switch between Fahrenheit and Celcius</legend>
+    <div>
+      <input type="radio" id="celcius" name="units" value="celcius" onchange="sliderTemp(celcius)" checked>
+      <label for="celcius">Celcius (°C)</label>
+
+      <input type="radio" id="fahrenheit" name="units" value="fahrenheit" onchange="sliderTemp(fahrenheit)" checked>
+      <label for="fahrenheit">Fahrenheit (°F)</label>
+    </div>
+  </fieldset>
+  <script>
+    var slider = document.getElementById("myRange");
+    
+    slider.oninput = function() {
+      document.getElementById("McSlidey").setAttribute("y", 165-this.value)
+      document.getElementById("McSlidey2").setAttribute("y", 165-this.value)
+      document.getElementById("McSlidey").setAttribute("height", this.value)
+      document.getElementById("McSlidey2").setAttribute("height", this.value)
+      if (this.value >= 0 && this.value < 25){
+        document.getElementById("McSlidey").setAttribute("fill", "blue")
+        document.getElementById("McSlidey2").setAttribute("fill", "blue")
+        document.getElementById("McRoundy").setAttribute("fill", "blue")
+      } else if(this.value >= 25 && this.value < 67.5) {
+        document.getElementById("McSlidey").setAttribute("fill", "orange")
+        document.getElementById("McSlidey2").setAttribute("fill", "orange")
+        document.getElementById("McRoundy").setAttribute("fill", "orange")
+      } else if(this.value >= 67.5) {
+        document.getElementById("McSlidey").setAttribute("fill", "red")
+        document.getElementById("McSlidey2").setAttribute("fill", "red")
+        document.getElementById("McRoundy").setAttribute("fill", "red")
+      }
+    }
+
+    function sliderTemp(button) {
+      if (button == fahrenheit){
+        document.querySelector("text#text1").textContent='212.0 °F'
+        document.querySelector("text#text2").textContent='169.6 °F'
+        document.querySelector("text#text3").textContent='127.2 °F'
+        document.querySelector("text#text4").textContent='84.8 °F'
+        document.querySelector("text#text5").textContent='42.4 °F'
+        document.querySelector("text#text6").textContent='0.0 °F'
+      } else if(button == celcius){
+        document.querySelector("text#text1").textContent='100.0 °C'
+        document.querySelector("text#text2").textContent='76.4 °C'
+        document.querySelector("text#text3").textContent='52.9 °C'
+        document.querySelector("text#text4").textContent='29.3 °C'
+        document.querySelector("text#text5").textContent='5.8 °C'
+        document.querySelector("text#text6").textContent='-17.8 °C'
+      }
+    }
+  </script>
+</body>
+
+</html>
